@@ -27,6 +27,7 @@
 plugins {
     alias(libs.plugins.runPaper)
     alias(libs.plugins.shadow)
+    alias(libs.plugins.pluginYml)
     alias(libs.plugins.paperweight)
     id("java")
 }
@@ -34,6 +35,10 @@ plugins {
 group = "de.nicklasmatzulla"
 version = "1.0.0-SNAPSHOT"
 description = "PaperTemplate is a quick starter that makes it easy to create new programming projects using my libraries."
+val website = "https://github.com/NicklasMatzulla/"
+val authors = listOf("Nicklas Matzulla")
+val apiVersion = "1.20"
+val foliaSupported = false
 
 repositories {
     mavenCentral()
@@ -67,18 +72,16 @@ tasks {
     shadowJar {
         fun reloc(pkg: String, libName: String) = relocate(pkg, "de.nicklasmatzulla." + project.name.lowercase() + ".$libName")
     }
-    processResources {
-        filteringCharset = Charsets.UTF_8.name()
-        val props = mapOf(
-            "name" to project.name,
-            "version" to project.version,
-            "description" to project.description,
-            "apiVersion" to libs.versions.pluginApi.get(),
-            "mainClass" to "de.nicklasmatzulla." + project.name.lowercase() + "." + project.name
-        )
-        inputs.properties(props)
-        filesMatching("paper-plugin.yml") {
-            expand(props)
-        }
-    }
+}
+
+paper {
+    name = project.name
+    version = project.version.toString()
+    description = project.description
+    website = this@Build_gradle.website
+    authors = this@Build_gradle.authors
+    main = project.group.toString() + "." + project.name.lowercase() + "." + project.name
+    generateLibrariesJson = true
+    foliaSupported = this@Build_gradle.foliaSupported
+    apiVersion = this@Build_gradle.apiVersion
 }

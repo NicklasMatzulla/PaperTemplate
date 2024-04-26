@@ -1,7 +1,0 @@
-#file: noinspection YAMLSchemaValidation
-
-name: "$name"
-version: "$version"
-main: $mainClass
-description: $description
-api-version: "$apiVersion"
