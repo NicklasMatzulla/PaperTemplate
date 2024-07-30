@@ -24,6 +24,9 @@
 
 @file:Suppress("SpellCheckingInspection")
 
+import io.papermc.paperweight.userdev.ReobfArtifactConfiguration
+
+
 plugins {
     alias(libs.plugins.runPaper)
     alias(libs.plugins.shadow)
@@ -42,21 +45,25 @@ val foliaSupported = false
 
 repositories {
     mavenCentral()
+    maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
-    annotationProcessor(libs.annotations)
-    compileOnly(libs.annotations)
+    annotationProcessor(libs.lombok)
+    compileOnly(libs.lombok)
     implementation(libs.annotations)
     paperweight.paperDevBundle(libs.versions.paperApi)
 
-    testAnnotationProcessor(libs.annotations)
-    testCompileOnly(libs.annotations)
+    testAnnotationProcessor(libs.lombok)
+    testCompileOnly(libs.lombok)
+    testImplementation(libs.annotations)
 }
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
 }
+
+paperweight.reobfArtifactConfiguration = ReobfArtifactConfiguration.MOJANG_PRODUCTION
 
 tasks {
     assemble {
@@ -64,7 +71,7 @@ tasks {
     }
     compileJava {
         options.encoding = Charsets.UTF_8.name()
-        options.release = 17
+        options.release = 21
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name()

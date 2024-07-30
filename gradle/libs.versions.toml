@@ -1,10 +1,10 @@
 [versions]
-runPaper = "2.2.4"
+runPaper = "2.3.0"
 shadow = "8.1.1"
 pluginYml = "0.6.0"
-paperweight = "1.5.15"
-paperApi = "1.20.4-R0.1-SNAPSHOT"
-lombok = "1.18.32"
+paperweight = "1.7.1"
+paperApi = "1.21-R0.1-SNAPSHOT"
+lombok = "1.18.34"
 annotations = "24.1.0"
 
 [plugins]
